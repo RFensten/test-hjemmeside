@@ -12,24 +12,24 @@
     
     <!-- 
       Newsletter Form Integration
-      
-      Option 1: Direct form POST (Action URL)
-      Replace 'YOUR_MAILCHIMP_ACTION_URL' with the actual URL from your provider.
-      
-      Option 2: Embedded Script
-      If referencing a script, remove the form markup below and paste the script provided by Mailchimp/ConvertKit/etc.
+      Connected to MailerLite
     -->
-    <form class="mx-auto mt-10 flex max-w-md gap-x-4" action="#" method="POST">
+    <form class="mx-auto mt-10 flex max-w-md gap-x-4" action="https://assets.mailerlite.com/jsonp/2074220/forms/177956404628292655/subscribe" method="post" target="_blank">
       <label for="email-address" class="sr-only">Email addresse</label>
       <input 
         id="email-address" 
-        name="email" 
+        name="fields[email]" 
         type="email" 
         autocomplete="email" 
         required 
         class="min-w-0 flex-auto rounded-sm border-0 bg-white dark:bg-[#2a2a26] px-3.5 py-2 text-[#2C2C2C] dark:text-[#EAEAEA] shadow-sm ring-1 ring-inset ring-[#D6D6CF] dark:ring-[#444] placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#4A5D4F] dark:focus:ring-[#A4AC86] sm:text-sm sm:leading-6" 
         placeholder="Indtast din email"
       >
+      
+      <!-- MailerLite Hidden Fields -->
+      <input type="hidden" name="ml-submit" value="1">
+      <input type="hidden" name="anticsrf" value="true">
+
       <button 
         type="submit" 
         class="flex-none rounded-sm bg-[#4A5D4F] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#3A4A3F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D4F] transition-colors"
