@@ -1,10 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { projects } from '../data/projects';
+import { getCollection, getEntry } from 'astro:content';
 
-// Get featured projects
-const featuredProjects = projects.filter(p => p.highlight).slice(0, 3);
+// Get featured projects from Content Collection
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects.filter(p => p.data.highlight).slice(0, 3);
+
+// Get Homepage Content
+const homepage = await getEntry('homepage', 'homepage');
+const { data: home } = homepage;
 ---
 
 <Layout title="Rasmus - Portfolio">
@@ -21,21 +26,19 @@ const featuredProjects = projects.filter(p => p.highlight).slice(0, 3);
         <div class="space-y-8 order-2 lg:order-1">
           <div class="space-y-4">
             <span class="inline-block py-1.5 px-4 bg-[#4A5D4F] text-white text-xs font-serif tracking-widest uppercase rounded-sm animate-fade-in-up" style="animation-delay: 0.1s;">
-              Portfolio 2026
+              {home.welcomeTag}
             </span>
             <h1 class="text-5xl lg:text-7xl font-serif text-[#2C2C2C] dark:text-[#EAEAEA] leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
-              Rasmus <br/>
-              <span class="italic animate-color-cycle">Fensten</span>
+              {home.heroTitle}
             </h1>
             <div class="h-1 w-24 bg-[#4A5D4F] dark:bg-[#A4AC86] animate-scale-x" style="animation-delay: 0.25s;"></div>
-            <p class="text-lg text-[#5C5C5C] dark:text-[#B0B0B0] max-w-lg leading-relaxed font-light animate-fade-in-up" style="animation-delay: 0.3s;">
-              Cand.IT-studerende. Jeg forener forretning med teknologi gennem <strong class="font-medium text-[#4A5D4F] dark:text-[#A4AC86]">holistisk automatisering</strong> og <strong class="font-medium text-[#4A5D4F] dark:text-[#A4AC86]">AI-drevet strategi</strong>.
+            <p class="text-lg text-[#5C5C5C] dark:text-[#B0B0B0] max-w-lg leading-relaxed font-light animate-fade-in-up" style="animation-delay: 0.3s;" set:html={home.heroSubtitle.replace(/\*\*(.*?)\*\*/g, '<strong class="font-medium text-[#4A5D4F] dark:text-[#A4AC86]">$1</strong>')}>
             </p>
           </div>
           
           <div class="flex flex-wrap gap-5 animate-fade-in-up" style="animation-delay: 0.4s;">
             <a href="/projekter" class="group inline-flex items-center justify-center px-8 py-3.5 text-sm uppercase tracking-wide font-medium text-white transition-all duration-300 bg-[#4A5D4F] hover:bg-[#3A4A3F] dark:bg-[#A4AC86] dark:hover:bg-[#8F9672] dark:text-[#1a1a18]">
-              Se Projekter
+              {home.heroButtonText}
             </a>
             <a href="/nyhedsbrev" class="inline-flex items-center justify-center px-8 py-3.5 text-sm uppercase tracking-wide font-medium text-[#4A5D4F] dark:text-[#A4AC86] transition-all duration-300 border border-[#4A5D4F] dark:border-[#A4AC86] hover:bg-[#4A5D4F] hover:text-white dark:hover:bg-[#A4AC86] dark:hover:text-[#1a1a18]">
               Kontakt & Nyhedsbrev
@@ -48,8 +51,8 @@ const featuredProjects = projects.filter(p => p.highlight).slice(0, 3);
           <div class="relative w-72 lg:w-[420px] aspect-[4/5]">
             <div class="absolute inset-0 border-2 border-[#4A5D4F]/20 dark:border-[#A4AC86]/20 translate-x-4 translate-y-4"></div>
             <img 
-              src="/rasmus-portrait.png" 
-              alt="Rasmus Fensten" 
+              src={home.heroImage} 
+              alt={home.heroTitle} 
               class="relative w-full h-full object-cover shadow-2xl grayscale-[20%] hover:grayscale-0 transition-all duration-700 ease-out"
             />
           </div>

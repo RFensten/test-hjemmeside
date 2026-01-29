@@ -2,10 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import TagFilter from '../components/TagFilter.astro';
-import { projects } from '../data/projects';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
 
 // Extract unique tags
-const allTags = [...new Set(projects.flatMap(p => p.tags))].sort();
+const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
 ---
 
 <Layout title="Projekter - Rasmus">

@@ -1,22 +1,23 @@
 ---
-import type { Project } from '../data/projects';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  project: Project;
+  project: CollectionEntry<'projects'>;
 }
 
 const { project } = Astro.props;
+const data = project.data;
 ---
 
 <article 
   class="group relative flex flex-col items-start p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300 project-card h-full"
-  data-tags={project.tags.join(',')}
+  data-tags={data.tags.join(',')}
 >
   <div class="flex items-center gap-x-4 text-xs">
-    <time datetime={project.year} class="text-gray-500 dark:text-gray-400">{project.year}</time>
+    <time datetime={data.year} class="text-gray-500 dark:text-gray-400">{data.year}</time>
     
     <div class="flex flex-wrap gap-2">
-      {project.tags.map(tag => (
+      {data.tags.map((tag: string) => (
         <span class="relative z-10 rounded-full bg-[#f0f0ee] dark:bg-[#2a2a26] px-2.5 py-0.5 font-medium text-[#4A5D4F] dark:text-[#A4AC86] hover:bg-[#e6e6e2] dark:hover:bg-[#333330] transition-colors">
           {tag}
         </span>
@@ -26,17 +27,17 @@ const { project } = Astro.props;
   
   <div class="group relative mt-4 flex-grow">
     <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-white group-hover:text-[#4A5D4F] dark:group-hover:text-[#A4AC86] transition-colors">
-      <a href={project.link || "#"}>
+      <a href={data.link || "#"}>
         <span class="absolute inset-0"></span>
-        {project.title}
+        {data.title}
       </a>
     </h3>
     <p class="mt-3 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
-      {project.shortDescription}
+      {data.shortDescription}
     </p>
   </div>
 
-  {project.link && (
+  {data.link && (
     <div class="mt-4 flex items-center text-sm font-medium text-[#4A5D4F] dark:text-[#A4AC86]">
       Se projekt
       <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
