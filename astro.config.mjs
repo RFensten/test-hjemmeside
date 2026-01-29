@@ -13,6 +13,6 @@ export default defineConfig({
     keystatic(),
     markdoc()
   ],
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
 });
