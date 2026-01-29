@@ -56,4 +56,12 @@ export const projects: Project[] = [
         link: "#",
         highlight: false,
     },
+    {
+        title: "Kæmpe agf fan",
+        shortDescription: "I 2026 vinder agf Superligaen.",
+        year: "2026",
+        tags: ["Fodbold", "AGF", "Superligaen"],
+        link: "#",
+        highlight: false,
+    },
 ];
