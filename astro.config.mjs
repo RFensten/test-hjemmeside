@@ -15,4 +15,5 @@ export default defineConfig({
   ],
   output: 'server',
   adapter: vercel(),
+  site: 'https://test-hjemmeside.vercel.app',
 });
