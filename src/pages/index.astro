@@ -25,7 +25,7 @@ const featuredProjects = projects.filter(p => p.highlight).slice(0, 3);
             </span>
             <h1 class="text-5xl lg:text-7xl font-serif text-[#2C2C2C] dark:text-[#EAEAEA] leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
               Rasmus <br/>
-              <span class="italic text-[#6B705C] dark:text-[#A4AC86]">Fensten</span>
+              <span class="italic animate-color-cycle">Fensten</span>
             </h1>
             <div class="h-1 w-24 bg-[#4A5D4F] dark:bg-[#A4AC86] animate-scale-x" style="animation-delay: 0.25s;"></div>
             <p class="text-lg text-[#5C5C5C] dark:text-[#B0B0B0] max-w-lg leading-relaxed font-light animate-fade-in-up" style="animation-delay: 0.3s;">
@@ -72,6 +72,15 @@ const featuredProjects = projects.filter(p => p.highlight).slice(0, 3);
       from { transform: scaleX(0); transform-origin: left; }
       to { transform: scaleX(1); transform-origin: left; }
     }
+    
+    /* Pang farve animation */
+    @keyframes colorCycle {
+      0% { color: #89CFF0; }     /* Baby Blue */
+      25% { color: #FF69B4; }    /* Hot Pink */
+      50% { color: #32CD32; }    /* Lime Green */
+      75% { color: #FFFF00; }    /* Bright Yellow */
+      100% { color: #9C27B0; }   /* Purple */
+    }
 
     .animate-fade-in-up {
       opacity: 0;
@@ -84,6 +93,10 @@ const featuredProjects = projects.filter(p => p.highlight).slice(0, 3);
     .animate-scale-x {
       transform: scaleX(0);
       animation: scaleX 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    
+    .animate-color-cycle {
+      animation: colorCycle 4s infinite alternate; /* Kører frem og tilbage forløbende */
     }
   </style>
 

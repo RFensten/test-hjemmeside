@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Test Page">
+  <div class="container mx-auto px-4 py-16">
+    <h1 class="text-4xl font-serif font-bold text-[#2C2C2C] dark:text-[#EAEAEA] mb-6">
+      Dette er din Test-side! 🎉
+    </h1>
+    <p class="text-lg text-[#5C5C5C] dark:text-[#B0B0B0] mb-8">
+      Du linker hertil fordi du skrev <code>href: '/test'</code> i din Header-fil.
+    </p>
+    <div class="p-6 bg-[#E8E8E3] dark:bg-[#2a2a26] rounded-lg">
+      <h2 class="text-xl font-bold mb-2 text-[#4A5D4F] dark:text-[#A4AC86]">Sådan virker det:</h2>
+      <ul class="list-disc list-inside space-y-2 text-[#5C5C5C] dark:text-[#B0B0B0]">
+        <li>Linket i <code>Header.astro</code> siger: <strong>Gå til "/test"</strong></li>
+        <li>Astro leder efter filen: <code>src/pages/test.astro</code></li>
+        <li>Denne fil vises!</li>
+      </ul>
+    </div>
+  </div>
+</Layout>
