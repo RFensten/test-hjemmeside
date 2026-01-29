@@ -14,7 +14,14 @@
       Newsletter Form Integration
       Connected to MailerLite
     -->
-    <form class="mx-auto mt-10 flex max-w-md gap-x-4" action="https://assets.mailerlite.com/jsonp/2074220/forms/177956404628292655/subscribe" method="post" target="_blank">
+    <!-- Success Message (Hidden by default) -->
+    <div id="newsletter-success" class="hidden mt-10 p-6 bg-green-50 dark:bg-green-900/20 rounded-sm border border-green-100 dark:border-green-900/30">
+      <h3 class="text-xl font-bold text-[#4A5D4F] dark:text-[#A4AC86] mb-2">Tak for din tilmelding! 🎉</h3>
+      <p class="text-[#5C5C5C] dark:text-[#B0B0B0]">Du er nu på listen og hører fra mig snart.</p>
+    </div>
+
+    <!-- Newsletter Form -->
+    <form id="newsletter-form" class="mx-auto mt-10 flex max-w-md gap-x-4" action="https://assets.mailerlite.com/jsonp/2074220/forms/177956404628292655/subscribe" method="post">
       <label for="email-address" class="sr-only">Email addresse</label>
       <input 
         id="email-address" 
@@ -32,7 +39,8 @@
 
       <button 
         type="submit" 
-        class="flex-none rounded-sm bg-[#4A5D4F] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#3A4A3F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D4F] transition-colors"
+        id="submit-button"
+        class="flex-none rounded-sm bg-[#4A5D4F] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#3A4A3F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D4F] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Tilmeld
       </button>
@@ -44,3 +52,41 @@
     </p>
   </div>
 </div>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement;
+  const successMessage = document.getElementById('newsletter-success');
+  const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+
+  if (form && successMessage && submitButton) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // UI: Loading state
+      submitButton.disabled = true;
+      submitButton.textContent = 'Tilmelder...';
+
+      const formData = new FormData(form);
+
+      try {
+        // MailerLite often needs 'no-cors' for direct client-side posts if not using their JS
+        // This means we won't strictly know if it failed, but it avoids the CORs error.
+        await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors' 
+        });
+
+        // Assume success (most common with no-cors)
+        form.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+        
+      } catch (error) {
+        console.error('Newsletter error:', error);
+        alert('Der opstod en fejl. Prøv venligst igen.');
+        submitButton.disabled = false;
+        submitButton.textContent = 'Tilmeld';
+      }
+    });
+  }
+</script>
