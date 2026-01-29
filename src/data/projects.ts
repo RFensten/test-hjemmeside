@@ -9,8 +9,8 @@ export interface Project {
 
 export const projects: Project[] = [
     {
-        title: "AI Automatiserings-workflow",
-        shortDescription: "Et komplet n8n workflow der automatiserer kundesupport baseret på indgående emails og AI-analyse.",
+        title: "Min Fede Portfolio Siden",
+        shortDescription: "Dette er en live test for at se om automatisk deployment virker!",
         year: "2025",
         tags: ["Automatisering", "n8n", "AI", "Python"],
         link: "#",
