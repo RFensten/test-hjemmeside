@@ -10,22 +10,31 @@ const featuredProjects = projects.filter(p => p.highlight).slice(0, 3);
 <Layout title="Rasmus - Portfolio">
   <!-- Hero Section -->
   <section class="py-12 sm:py-20 lg:py-24">
-    <div class="max-w-3xl">
-      <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl mb-6">
-        Hej, jeg er Rasmus. Jeg er en drengerøv <br class="hidden sm:block" />
-        <span class="text-blue-600 dark:text-blue-400">Cand.IT-studerende.</span>
-      </h1>
-      <p class="mt-4 text-xl text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl">
-        Jeg arbejder i krydsfeltet mellem forretning og teknologi. Specialiseret i <span class="text-gray-900 dark:text-gray-200 font-medium">digital transformation</span>, <span class="text-gray-900 dark:text-gray-200 font-medium">procesautomatisering</span> og <span class="text-gray-900 dark:text-gray-200 font-medium">kunstig intelligens</span>.
-      </p>
-      
-      <div class="mt-8 flex flex-wrap gap-4">
-        <a href="/projekter" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
-          Se mine projekter
-        </a>
-        <a href="/nyhedsbrev" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-700 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
-          Kontakt & Nyhedsbrev
-        </a>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl mb-6">
+          Hej, jeg er Rasmus. Jeg er en drengerøv <br class="hidden sm:block" />
+          <span class="text-blue-600 dark:text-blue-400">Cand.IT-studerende.</span>
+        </h1>
+        <p class="mt-4 text-xl text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl">
+          Jeg arbejder i krydsfeltet mellem forretning og teknologi. Specialiseret i <span class="text-gray-900 dark:text-gray-200 font-medium">digital transformation</span>, <span class="text-gray-900 dark:text-gray-200 font-medium">procesautomatisering</span> og <span class="text-gray-900 dark:text-gray-200 font-medium">kunstig intelligens</span>.
+        </p>
+        
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="/projekter" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+            Se mine projekter
+          </a>
+          <a href="/nyhedsbrev" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-700 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+            Kontakt & Nyhedsbrev
+          </a>
+        </div>
+      </div>
+      <div class="order-first lg:order-last flex justify-center lg:justify-end">
+        <img 
+          src="/rasmus.png" 
+          alt="Rasmus Fensten" 
+          class="w-64 h-auto sm:w-80 object-cover rotate-3 hover:rotate-0 transition-transform duration-300 drop-shadow-2xl"
+        />
       </div>
     </div>
   </section>
