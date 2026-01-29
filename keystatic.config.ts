@@ -5,9 +5,7 @@ export default config({
         ? {
             kind: 'github',
             repo: 'RFensten/test-hjemmeside',
-            clientId: import.meta.env.KEYSTATIC_GITHUB_CLIENT_ID,
-            clientSecret: import.meta.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
-        } as any
+        }
         : {
             kind: 'local',
         },
