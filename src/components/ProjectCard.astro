@@ -17,7 +17,7 @@ const { project } = Astro.props;
     
     <div class="flex flex-wrap gap-2">
       {project.tags.map(tag => (
-        <span class="relative z-10 rounded-full bg-blue-50 dark:bg-blue-900/30 px-2.5 py-0.5 font-medium text-blue-600 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+        <span class="relative z-10 rounded-full bg-[#f0f0ee] dark:bg-[#2a2a26] px-2.5 py-0.5 font-medium text-[#4A5D4F] dark:text-[#A4AC86] hover:bg-[#e6e6e2] dark:hover:bg-[#333330] transition-colors">
           {tag}
         </span>
       ))}
@@ -25,7 +25,7 @@ const { project } = Astro.props;
   </div>
   
   <div class="group relative mt-4 flex-grow">
-    <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+    <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-white group-hover:text-[#4A5D4F] dark:group-hover:text-[#A4AC86] transition-colors">
       <a href={project.link || "#"}>
         <span class="absolute inset-0"></span>
         {project.title}
@@ -37,7 +37,7 @@ const { project } = Astro.props;
   </div>
 
   {project.link && (
-    <div class="mt-4 flex items-center text-sm font-medium text-blue-600 dark:text-blue-400">
+    <div class="mt-4 flex items-center text-sm font-medium text-[#4A5D4F] dark:text-[#A4AC86]">
       Se projekt
       <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
