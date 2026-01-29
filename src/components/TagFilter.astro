@@ -1,0 +1,69 @@
+---
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<div class="mb-8" id="tag-filter-container">
+  <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Filtrer efter teknologi</h3>
+  <div class="flex flex-wrap gap-2">
+    <button
+      data-tag="all"
+      class="filter-btn active px-3 py-1.5 rounded-full text-sm font-medium transition-colors bg-blue-600 text-white hover:bg-blue-700"
+    >
+      Alle
+    </button>
+    {tags.map((tag) => (
+      <button
+        data-tag={tag}
+        class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+      >
+        {tag}
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  function setupFilter() {
+    const buttons = document.querySelectorAll('.filter-btn');
+    const projects = document.querySelectorAll('.project-card');
+
+    if (!buttons.length || !projects.length) return;
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all
+        buttons.forEach(b => {
+          b.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+          b.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200', 'dark:bg-gray-800', 'dark:text-gray-300', 'dark:hover:bg-gray-700');
+        });
+
+        // Add active class to clicked
+        btn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200', 'dark:bg-gray-800', 'dark:text-gray-300', 'dark:hover:bg-gray-700');
+        btn.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+
+        const filterValue = btn.getAttribute('data-tag');
+
+        projects.forEach((project: any) => {
+          const tags = project.dataset.tags ? project.dataset.tags.split(',') : [];
+          
+          if (filterValue === 'all' || tags.includes(filterValue)) {
+             project.style.display = 'block';
+             // Simple fade in animation could go here
+          } else {
+            project.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // Run on load
+  setupFilter();
+
+  // Run on view transitions navigation
+  document.addEventListener('astro:page-load', setupFilter);
+</script>
