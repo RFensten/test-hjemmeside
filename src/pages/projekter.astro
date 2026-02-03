@@ -2,9 +2,33 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import TagFilter from '../components/TagFilter.astro';
-import { getCollection } from 'astro:content';
+import { sanityClient } from '../lib/sanityClient';
 
-const projects = await getCollection('projects');
+// Fetch all projects from Sanity
+const sanityProjects = await sanityClient.fetch(`
+  *[_type == "project"] | order(_createdAt desc) {
+    _id,
+    title,
+    slug,
+    shortDescription,
+    link,
+    year,
+    tags,
+    highlight
+  }
+`);
+
+// Convert Sanity projects to match the expected format
+const projects = sanityProjects.map((project: any) => ({
+  data: {
+    title: project.title,
+    shortDescription: project.shortDescription,
+    link: project.link,
+    year: project.year,
+    tags: project.tags || [],
+    highlight: project.highlight,
+  }
+}));
 
 // Extract unique tags
 const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
