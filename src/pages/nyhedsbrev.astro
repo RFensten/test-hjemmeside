@@ -1,16 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
+import { sanityClient } from '../lib/sanityClient';
+
+// Fetch newsletter page data from Sanity
+const newsletterData = await sanityClient.fetch(`
+  *[_type == "newsletterPage"][0] {
+    title,
+    description,
+    contactSectionTitle,
+    contactEmail
+  }
+`);
 ---
 
 <Layout title="Nyhedsbrev - Rasmus">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="text-center mb-10">
       <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-4">
-        Kontakt & Nyhedsbrev
+        {newsletterData?.title || 'Kontakt & Nyhedsbrev'}
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400">
-        Har du spørgsmål eller vil du følge med i mine seneste opdagelser?
+        {newsletterData?.description || 'Har du spørgsmål eller vil du følge med i mine seneste opdagelser?'}
       </p>
     </div>
 
@@ -18,13 +29,13 @@ import NewsletterForm from '../components/NewsletterForm.astro';
 
     <div class="mt-16 text-center">
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        Send mig en direkte besked
+        {newsletterData?.contactSectionTitle || 'Send mig en direkte besked'}
       </h2>
       <a 
-        href="mailto:kontakt@eksempel.dk" 
+        href={`mailto:${newsletterData?.contactEmail || 'kontakt@eksempel.dk'}`} 
         class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-500 font-medium text-lg"
       >
-        kontakt@eksempel.dk
+        {newsletterData?.contactEmail || 'kontakt@eksempel.dk'}
         <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>

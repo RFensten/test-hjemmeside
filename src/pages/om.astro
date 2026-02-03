@@ -1,7 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { sanityClient, urlFor } from '../lib/sanityClient';
 
-const skills = [
+// Fetch about page data from Sanity
+const aboutData = await sanityClient.fetch(`
+  *[_type == "aboutPage"][0] {
+    title,
+    profileImage,
+    bioParagraph1,
+    bioParagraph2,
+    bioParagraph3,
+    skillsTitle,
+    skills
+  }
+`);
+
+const skills = aboutData?.skills || [
   "Automatisering (Make.com, n8n, Zapier)",
   "AI & Prompt Engineering",
   "Dataanalyse & Visualisering",
@@ -10,38 +24,44 @@ const skills = [
   "Digital Strategi",
   "Procesoptimering"
 ];
+
+const profileImageUrl = aboutData?.profileImage ? urlFor(aboutData.profileImage).width(400).url() : '/rasmus-portrait.png';
 ---
 
 <Layout title="Om mig - Rasmus">
   <div class="pt-16 pb-24 bg-white dark:bg-[#1a1a18]">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-4xl font-serif font-bold tracking-tight text-[#2C2C2C] dark:text-[#EAEAEA] sm:text-5xl mb-12">
-      Om mig
-    </h1>
+        {aboutData?.title || 'Om mig'}
+      </h1>
 
     <div class="flex flex-col md:flex-row gap-8 items-start">
       <div class="prose prose-lg prose-stone dark:prose-invert max-w-none md:flex-1">
         <p>
-          Jeg er en Cand.IT-studerende med en passion for at bygge bro mellem komplekse teknologiske løsninger og forretningsmæssig værdi. Min rejse startede med en nysgerrighed for, hvordan vi kan arbejde smartere, ikke hårdere.
+          {aboutData?.bioParagraph1 || 'Jeg er en Cand.IT-studerende med en passion for at bygge bro mellem komplekse teknologiske løsninger og forretningsmæssig værdi. Min rejse startede med en nysgerrighed for, hvordan vi kan arbejde smartere, ikke hårdere.'}
         </p>
-        <p>
-          I dag fokuserer jeg på digital transformation gennem automatisering og implementering af AI-værktøjer. Jeg elsker at dykke ned i "messy" data og processer for at skabe struktur og effektivitet.
-        </p>
-        <p>
-          Når jeg ikke studerer eller bygger automations, eksperimenterer jeg med nye web-teknologier eller bidrager til open source projekter.
-        </p>
+        {aboutData?.bioParagraph2 && (
+          <p>
+            {aboutData.bioParagraph2}
+          </p>
+        )}
+        {aboutData?.bioParagraph3 && (
+          <p>
+            {aboutData.bioParagraph3}
+          </p>
+        )}
       </div>
       <div class="w-full md:w-1/3 flex justify-center md:justify-end">
          <img 
-          src="/rasmus-portrait.png" 
-          alt="Rasmus Fensten" 
+          src={profileImageUrl} 
+          alt={aboutData?.title || 'Rasmus Fensten'} 
           class="w-56 h-auto rounded-sm shadow-xl hover:grayscale-0 grayscale-[20%] transition-all duration-500"
         />
       </div>
     </div>
 
     <div class="mt-12">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Kompetencer</h2>
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{aboutData?.skillsTitle || 'Kompetencer'}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {skills.map(skill => (
           <div class="flex items-center p-4 rounded-lg bg-[#F5F5F0] dark:bg-[#1a1a18] border border-[#E8E8E3] dark:border-[#2a2a26]">
